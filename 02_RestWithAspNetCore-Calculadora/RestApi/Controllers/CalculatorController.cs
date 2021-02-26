@@ -11,7 +11,6 @@ namespace RestApi.Controllers
     [Route("[controller]")]
     public class CalculatorController : ControllerBase
     {
-        private double number;
 
         public CalculatorController(ILogger<CalculatorController> logger)
         {
