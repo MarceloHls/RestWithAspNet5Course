@@ -1,7 +1,10 @@
+using _03_RestWithAspNetCore_Person.Model.Context;
+using _03_RestWithAspNetCore_Person.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +29,12 @@ namespace _03_RestWithAspNetCore_Person
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            var connection = Configuration["MySQlConnection:MySQlConnectionString"];
+            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
+
+            services.AddApiVersioning();
+
+            services.AddScoped<IPersonService, PersonServiceImplementation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
